@@ -1,0 +1,7 @@
+---
+name: Cytoscape
+category: Interactive Apps
+subcategory: Cluster
+role: batch_connect
+description: |
+  This app will launch Cytoscape on a cluster node.

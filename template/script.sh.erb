@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+# Clean the environment
+module purge
+
+# Set working directory to home directory
+cd "${HOME}"
+
+
+(
+  unset XDG_RUNTIME_DIR
+  export SEND_256_COLORS_TO_REMOTE=1
+  export XDG_CONFIG_HOME="<%= session.staged_root.join("config") %>"
+  export XDG_DATA_HOME="<%= session.staged_root.join("share") %>"
+  export XDG_CACHE_HOME="$(mktemp -d)"
+  module restore
+  set -x
+  xfwm4 --compositor=off --daemon --sm-client-disable
+  xsetroot -solid "#D3D3D3"
+) &
+
+# Launch Cytoscape
+set -x
+xfce4-terminal -e 'bash -c "module add java_jdk/11.0.2; /opt/ohpc/pub/Software/Cytoscape_v3.9.1/cytoscape.sh"'
